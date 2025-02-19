@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ระบบจัดการนักเรียน{% endblock %}</title>
+</head>
+<body>
+    <h1>ระบบจัดการนักเรียน</h1>
+    <nav>
+        <a href="{% url 'student_list' %}">หน้าแรก</a> |
+        <a href="{% url 'student_create' %}">เพิ่มนักเรียน</a>
+    </nav>
+    {% block content %}{% endblock %}
+</body>
+</html>
