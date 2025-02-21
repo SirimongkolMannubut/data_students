@@ -1,10 +1,53 @@
 {% extends 'base.html' %}
-{% block content %}
-<h2>{% if form.instance.pk %}แก้ไขนักเรียน{% else %}เพิ่มนักเรียน{% endif %}</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">บันทึก</button>
-</form>
-{% endblock %}
 
+{% block content %}
+<h2 class="page-title">
+    {% if form.instance.pk %}
+        แก้ไขนักเรียน
+    {% else %}
+        เพิ่มนักเรียน
+    {% endif %}
+</h2>
+
+<div class="form-container">
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="id">ID นักเรียน:</label>
+            {% if form.instance.pk %}
+                <!-- แสดง ID เมื่อแก้ไข -->
+                <input type="text" id="id" name="id" value="{{ form.instance.id }}" disabled />
+            {% else %}
+                <!-- กรอก ID เมื่อเพิ่ม -->
+                {{ form.id }}
+                {% if form.id.errors %}
+                    <p class="error-message" style="color: red;">{{ form.id.errors.0 }}</p>
+                {% endif %}
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="name">ชื่อ:</label>
+            {{ form.name }}
+        </div>
+
+        <div class="form-group">
+            <label for="age">อายุ:</label>
+            {{ form.age }}
+        </div>
+
+        <div class="form-group">
+            <label for="grade">ชั้น:</label>
+            {{ form.grade }}
+        </div>
+
+        <div class="form-group">
+            <label for="email">อีเมล:</label>
+            {{ form.email }}
+        </div>
+
+        <button type="submit" class="save-btn">บันทึก</button>
+    </form>
+</div>
+{% endblock %}

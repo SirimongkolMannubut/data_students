@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>ลงทะเบียนคอร์ส</h2>
+
+    {% if student %}
+        <p>นักเรียน: {{ student.name }}</p>  <!-- แสดงชื่อของนักเรียน -->
+    {% endif %}
+
+    <!-- แสดงข้อความถ้ามีข้อผิดพลาด -->
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <strong>เกิดข้อผิดพลาด:</strong>
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_course">เลือกหลักสูตร:</label>
+            {{ form.course }}  <!-- ฟอร์มสำหรับเลือกหลักสูตร -->
+        </div>
+
+        <button type="submit" class="btn btn-primary">ลงทะเบียน</button>
+    </form>
+{% endblock %}

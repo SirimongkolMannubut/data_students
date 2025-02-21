@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สร้างข้อมูลนักเรียน</title>
+</head>
+<body>
+    <h2>สร้างข้อมูลนักเรียน</h2>
+    
+    <!-- ฟอร์มที่ใช้ในฟังก์ชั่นสร้าง -->
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- แสดงฟอร์มแบบพารากราฟ -->
+        <button type="submit">บันทึกข้อมูล</button>
+    </form>
+
+    <br>
+    <a href="{% url 'home' %}">กลับสู่หน้าหลัก</a>  <!-- เปลี่ยน URL ตามต้องการ -->
+</body>
+</html>

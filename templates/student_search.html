@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>ค้นหานักเรียน</h2>
+
+<!-- ฟอร์มค้นหานักเรียน -->
+<form method="GET">
+    {% csrf_token %}
+    <div class="form-group">
+        {{ form.as_p }} <!-- แสดงฟอร์มที่รับ ID เท่านั้น -->
+    </div>
+    <button type="submit" class="btn btn-primary">ค้นหา</button>
+</form>
+
+<!-- แสดงผลลัพธ์การค้นหานักเรียน -->
+{% if students %}
+    <h3>ผลลัพธ์การค้นหา:</h3>
+    <table class="student-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ชื่อ</th>
+                <th>เกรด</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+                <tr>
+                    <td>{{ student.id }}</td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.grade }}</td> <!-- เพิ่มการแสดงเกรด -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>ไม่พบผลลัพธ์การค้นหา</p>
+{% endif %}
+{% endblock %}
+
+<style>
+    /* Page title */
+    h2 {
+        text-align: center;
+        color: #444;
+        margin-bottom: 20px;
+    }
+
+    /* Form */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group input, .form-group select {
+        padding: 12px;
+        width: 100%;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 16px;
+        width: 100%;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    /* Student table */
+    .student-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        text-align: center;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .student-table th, .student-table td {
+        padding: 12px;
+        border: 1px solid #ddd;
+    }
+
+    .student-table th {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .student-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .student-table tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>

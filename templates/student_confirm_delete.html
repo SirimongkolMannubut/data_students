@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>ลบนักเรียน</h2>
-<p>คุณแน่ใจหรือไม่ว่าต้องการลบ "{{ student.name }}"?</p>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">ลบ</button>
-    <a href="{% url 'student_list' %}">ยกเลิก</a>
-</form>
+<div class="confirm-box">
+    <h2>ลบนักเรียน</h2>
+    <p>คุณแน่ใจหรือไม่ว่าต้องการลบ <strong>"{{ student.name }}"</strong>?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="delete-btn">ลบ</button>
+        <a href="{% url 'student_list' %}" class="cancel-btn">ยกเลิก</a>
+    </form>
+</div>
 {% endblock %}
