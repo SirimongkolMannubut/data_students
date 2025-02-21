@@ -15,13 +15,14 @@ class Course(models.Model):
     name = models.CharField(max_length=100)  # ชื่อหลักสูตร
     description = models.TextField()  # รายละเอียดหลักสูตร
     created_at = models.DateTimeField(auto_now_add=True)  # เวลาที่สร้าง
+    max_students = models.IntegerField(default=30)  # จำนวนสูงสุดของนักเรียนในหลักสูตร
 
     def __str__(self):
         return self.name
 
 class CourseRegistration(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='registrations')  # เพิ่ม related_name
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='registrations')  # เพิ่ม related_name
     date_registered = models.DateTimeField(auto_now_add=True)
 
     class Meta:

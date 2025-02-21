@@ -20,7 +20,6 @@ def register_course(request, student_id=None):
     return render(request, 'register_course.html', {'form': form, 'student': student})
 
 
-
 # ฟังก์ชันแสดงรายการการลงทะเบียน
 def registration_list(request):
     registrations = CourseRegistration.objects.all()  # แสดงการลงทะเบียนทั้งหมด
@@ -31,6 +30,7 @@ def registration_list(request):
 def student_search(request):
     search_form = StudentSearchForm(request.GET)
     students = []  # เริ่มต้นเป็นลิสต์ว่างสำหรับเก็บผลลัพธ์
+    registrations = []  # เก็บการลงทะเบียนของนักเรียน
 
     if request.method == 'GET' and search_form.is_valid():
         search_id = search_form.cleaned_data.get('search_id')  # ดึง ID ที่กรอก
@@ -39,7 +39,10 @@ def student_search(request):
         if search_id:
             students = Student.objects.filter(id=search_id)
 
-    return render(request, 'student_search.html', {'form': search_form, 'students': students})
+            # ดึงการลงทะเบียนของนักเรียน
+            registrations = CourseRegistration.objects.filter(student__in=students)
+
+    return render(request, 'student_search.html', {'form': search_form, 'students': students, 'registrations': registrations})
 
 
 # หน้าแรก

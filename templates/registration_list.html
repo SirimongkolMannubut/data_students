@@ -1,28 +1,73 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>รายการการลงทะเบียนเรียน</h2>
+    <h2 class="page-title">📜 รายการการลงทะเบียนเรียน</h2>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>นักเรียน</th>
-                <th>หลักสูตร</th>
-                <th>วันที่ลงทะเบียน</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for registration in registrations %}
+    <div class="table-container">
+        <table class="student-table">
+            <thead>
                 <tr>
-                    <td>{{ registration.student.name }}</td>
-                    <td>{{ registration.course.name }}</td>
-                    <td>{{ registration.date_registered|date:"d/m/Y H:i" }}</td>  <!-- แสดงวันที่ในรูปแบบ "วัน/เดือน/ปี ชั่วโมง:นาที" -->
+                    <th>📌 นักเรียน</th>
+                    <th>📖 หลักสูตร</th>
+                    <th>📅 วันที่ลงทะเบียน</th>
                 </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="3">ยังไม่มีการลงทะเบียน</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for registration in registrations %}
+                    <tr>
+                        <td>{{ registration.student.name }}</td>
+                        <td>{{ registration.course.name }}</td>
+                        <td>{{ registration.date_registered|date:"d/m/Y H:i" }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="3" class="no-data">ยังไม่มีการลงทะเบียน</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
+
+<style>
+    .page-title {
+        text-align: center;
+        font-size: 28px;
+        color: #007bff;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+    .table-container {
+        width: 90%;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .student-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .student-table th, .student-table td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: center;
+        font-size: 16px;
+    }
+    .student-table th {
+        background-color: #007bff;
+        color: white;
+    }
+    .student-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    .student-table tr:hover {
+        background-color: #f1f1f1;
+    }
+    .no-data {
+        text-align: center;
+        color: red;
+        font-style: italic;
+    }
+</style>

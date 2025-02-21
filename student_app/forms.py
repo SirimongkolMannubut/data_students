@@ -32,7 +32,7 @@ class CourseRegistrationForm(forms.ModelForm):
             instance.student = self.student  # กำหนด student ที่ลงทะเบียน
 
         # ตรวจสอบจำนวนผู้ลงทะเบียนของหลักสูตร
-        if instance.course.course_registration_set.count() >= instance.course.max_students:
+        if instance.course.registrations.count() >= instance.course.max_students:
             raise ValidationError(f"หลักสูตร {instance.course.name} เต็มแล้ว")  # ถ้าหลักสูตรเต็มแล้ว จะเกิด ValidationError
 
         # ถ้า commit เป็น True ก็จะบันทึกข้อมูลลงฐานข้อมูล
